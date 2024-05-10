@@ -11,5 +11,5 @@ import { HotelListComponent } from './hotel-list/hotel-list.component';
     styleUrl: './app.component.css',
 })
 export class AppComponent {
-    title = 'Tuto_Angular';
+    title = 'Gestionnaire hôtels';
 }
