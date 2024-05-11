@@ -5,7 +5,19 @@
         <span class="material-icons me-1">{{ showBadge ? 'visibility_off' : 'visibility' }}</span>
         {{ showBadge ? 'Cacher nouveau' : 'Afficher nouveau'}}
     </button>
-
+    <hr>
+    <div class="my-2">
+        <div class="row">
+            <div class="col-md-4">
+                <span>Filtre actuel : </span>
+                <b>{{ hotelFilter }}</b>
+            </div>
+            <div class="col-md-8 form-group">
+                <input type="text" class="form-control" [(ngModel)]="hotelFilter">
+                <!-- <input type="text" class="form-control" [ngModel]="hotelFilter" (ngModelChange)="hotelFilter = $event"> -->
+            </div>
+        </div>
+    </div>
     <div class="row row-cols-1 row-cols-md-3">
         <div class="col mb-4" *ngFor="let hotel of hotels">
             <div class="card">

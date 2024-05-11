@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-hotel-list',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, FormsModule],
     templateUrl: './hotel-list.component.html',
     styleUrl: './hotel-list.component.css',
 })
@@ -43,6 +44,8 @@ export class HotelListComponent {
     ];
 
     public showBadge: boolean = false;
+
+    public hotelFilter: string = 'mot';
 
     public toggleIsNewBadge(): void {
         this.showBadge = !this.showBadge;
