@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { IHotel } from './hotel';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -13,10 +14,10 @@ registerLocaleData(localeFr, 'fr');
     templateUrl: './hotel-list.component.html',
     styleUrl: './hotel-list.component.css',
 })
-export class HotelListComponent {
+export class HotelListComponent implements OnInit {
     public title = "Liste d'hôtels";
 
-    public hotels: any[] = [
+    public hotels: IHotel[] = [
         {
             hotelId: 1,
             hotelName: 'Buea sweet life',
@@ -50,6 +51,10 @@ export class HotelListComponent {
     public showBadge: boolean = false;
 
     public hotelFilter: string = 'mot';
+
+    public ngOnInit(): void {
+        console.log('test');
+    }
 
     public toggleIsNewBadge(): void {
         this.showBadge = !this.showBadge;
