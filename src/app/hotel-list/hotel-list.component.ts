@@ -5,13 +5,14 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { IHotel } from './hotel';
 import { ReplaceComma } from '../shared/pipes/replace-comma.pipe';
+import { StarRatingComponent } from '../shared/components/star-rating/star-rating.component';
 
 registerLocaleData(localeFr, 'fr');
 
 @Component({
     selector: 'app-hotel-list',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReplaceComma],
+    imports: [CommonModule, FormsModule, ReplaceComma, StarRatingComponent],
     templateUrl: './hotel-list.component.html',
     styleUrl: './hotel-list.component.css',
 })
