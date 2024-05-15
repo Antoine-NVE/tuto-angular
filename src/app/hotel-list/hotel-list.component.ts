@@ -7,7 +7,6 @@ import { IHotel } from './hotel';
 import { ReplaceComma } from '../shared/pipes/replace-comma.pipe';
 import { StarRatingComponent } from '../shared/components/star-rating/star-rating.component';
 import { HotelListService } from './hotel-list.service';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 
 registerLocaleData(localeFr, 'fr');
