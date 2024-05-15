@@ -8,6 +8,7 @@ import { ReplaceComma } from '../shared/pipes/replace-comma.pipe';
 import { StarRatingComponent } from '../shared/components/star-rating/star-rating.component';
 import { HotelListService } from './hotel-list.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -20,6 +21,7 @@ registerLocaleData(localeFr, 'fr');
         ReplaceComma,
         StarRatingComponent,
         // HttpClientModule,
+        RouterLink,
     ],
     templateUrl: './hotel-list.component.html',
     styleUrl: './hotel-list.component.css',
