@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { HotelListComponent } from './hotel-list/hotel-list.component';
+import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
 
 @Component({
     selector: 'app-root',

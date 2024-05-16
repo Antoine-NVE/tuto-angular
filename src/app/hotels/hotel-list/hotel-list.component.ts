@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { IHotel } from './hotel';
-import { ReplaceComma } from '../shared/pipes/replace-comma.pipe';
-import { StarRatingComponent } from '../shared/components/star-rating/star-rating.component';
-import { HotelListService } from './hotel-list.service';
+import { IHotel } from '../shared/models/hotel';
+import { ReplaceComma } from '../../shared/pipes/replace-comma.pipe';
+import { StarRatingComponent } from '../../shared/components/star-rating/star-rating.component';
+import { HotelListService } from '../shared/services/hotel-list.service';
 import { RouterLink } from '@angular/router';
 
 registerLocaleData(localeFr, 'fr');

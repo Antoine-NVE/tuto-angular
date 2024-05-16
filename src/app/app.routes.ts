@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { HotelDetailComponent } from './hotel-list/hotel-detail/hotel-detail.component';
-import { HotelListComponent } from './hotel-list/hotel-list.component';
-import { hotelDetailGuard } from './hotel-list/hotel-detail.guard';
+import { HotelDetailComponent } from './hotels/hotel-detail/hotel-detail.component';
+import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
+import { hotelDetailGuard } from './hotels/shared/guards/hotel-detail.guard';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
