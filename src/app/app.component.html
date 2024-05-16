@@ -27,8 +27,17 @@
                     <a
                         class="nav-link"
                         routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }"
                         [routerLink]="['/hotels']"
                         >Liste</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        routerLinkActive="active"
+                        [routerLink]="['/hotels', '0', 'edit']"
+                        >Ajout d'hôtel</a
                     >
                 </li>
             </ul>
@@ -36,6 +45,6 @@
     </div>
 </nav>
 
-<div class="mt-5">
+<div class="mt-5 container">
     <router-outlet />
 </div>
