@@ -21,8 +21,8 @@ import { IHotel } from '../shared/models/hotel';
 export class HotelEditComponent implements OnInit {
     public hotelForm: FormGroup = this.fb.group({
         hotelName: ['', Validators.required],
-        hotelPrice: ['', Validators.required],
-        starRating: [''],
+        price: ['', Validators.required],
+        rating: [''],
         description: [''],
     });
     public hotel!: IHotel;
@@ -61,8 +61,8 @@ export class HotelEditComponent implements OnInit {
 
         this.hotelForm.patchValue({
             hotelName: this.hotel.hotelName,
-            hotelPrice: this.hotel.price,
-            starRating: this.hotel.rating,
+            price: this.hotel.price,
+            rating: this.hotel.rating,
             description: this.hotel.description,
         });
     }
@@ -76,7 +76,12 @@ export class HotelEditComponent implements OnInit {
                 };
 
                 if (hotel.id === 0) {
-                    //
+                    this.hotelService.createHotel(hotel).subscribe({
+                        next: () => {
+                            this.isSaved = true;
+                            this.saveCompleted();
+                        },
+                    });
                 } else {
                     this.hotelService.updateHotel(hotel).subscribe({
                         next: () => {

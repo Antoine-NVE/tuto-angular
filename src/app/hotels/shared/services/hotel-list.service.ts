@@ -19,6 +19,18 @@ export class HotelListService {
         );
     }
 
+    public createHotel(hotel: IHotel): Observable<IHotel> {
+        const url = this.HOTEL_API_URL;
+        hotel = {
+            ...hotel,
+            imageUrl: 'assets/img/hotel-room.jpg',
+            id: Math.ceil(Math.random() * 1000),
+        };
+        return this.http
+            .post<IHotel>(url, hotel)
+            .pipe(catchError(this.handleError));
+    }
+
     public updateHotel(hotel: IHotel): Observable<IHotel> {
         const url = `${this.HOTEL_API_URL}/${hotel.id}`;
         return this.http
