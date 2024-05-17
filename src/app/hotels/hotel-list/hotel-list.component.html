@@ -51,10 +51,17 @@
                     ></app-star-rating>
 
                     <span
+                        class="material-icons bg-primary text-white p-2 rounded-circle btn"
+                        [routerLink]="['/hotels', hotel.hotelId, 'edit']"
+                    >
+                        edit
+                    </span>
+                    <span
                         class="material-icons bg-info text-white p-2 rounded-circle btn"
                         [routerLink]="['/hotels', hotel.hotelId]"
-                        >keyboard_arrow_right</span
                     >
+                        keyboard_arrow_right
+                    </span>
                 </div>
                 <span class="badge rounded-pill text-bg-info" *ngIf="showBadge">
                     Nouveau
