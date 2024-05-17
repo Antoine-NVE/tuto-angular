@@ -26,6 +26,7 @@ export class HotelEditComponent implements OnInit {
         description: [''],
     });
     public hotel!: IHotel;
+    public pageTitle: string = '';
 
     constructor(
         private fb: FormBuilder,
@@ -49,6 +50,13 @@ export class HotelEditComponent implements OnInit {
 
     public displayHotel(hotel: IHotel): void {
         this.hotel = hotel;
+
+        if (this.hotel.hotelId === 0) {
+            this.pageTitle = 'Créer un hôtel';
+        } else {
+            this.pageTitle = `Modifier l'hôtel ${this.hotel.hotelName}`;
+        }
+
         this.hotelForm.patchValue({
             hotelName: this.hotel.hotelName,
             hotelPrice: this.hotel.price,
