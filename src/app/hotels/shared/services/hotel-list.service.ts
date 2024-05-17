@@ -8,7 +8,7 @@ import { catchError, map, tap } from 'rxjs/operators';
     providedIn: 'root',
 })
 export class HotelListService {
-    private readonly HOTEL_API_URL = 'api/hotels.json';
+    private readonly HOTEL_API_URL = 'api/hotels';
 
     constructor(private http: HttpClient) {}
 
@@ -24,13 +24,13 @@ export class HotelListService {
             return of(this.getDefaultHotel());
         }
         return this.getHotels().pipe(
-            map((hotels) => hotels.find((hotel) => hotel.hotelId === id)!)
+            map((hotels) => hotels.find((hotel) => hotel.id === id)!)
         );
     }
 
     private getDefaultHotel(): IHotel {
         return {
-            hotelId: 0,
+            id: 0,
             hotelName: '',
             description: '',
             price: 0,
