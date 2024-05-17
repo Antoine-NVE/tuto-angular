@@ -7,7 +7,7 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HotelListService } from '../shared/services/hotel-list.service';
 import { IHotel } from '../shared/models/hotel';
 
@@ -27,11 +27,13 @@ export class HotelEditComponent implements OnInit {
     });
     public hotel!: IHotel;
     public pageTitle: string = '';
+    public isSaved: boolean = false;
 
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
-        private hotelService: HotelListService
+        private hotelService: HotelListService,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -66,6 +68,32 @@ export class HotelEditComponent implements OnInit {
     }
 
     public saveHotel(): void {
+        if (this.hotelForm.valid) {
+            if (this.hotelForm.dirty) {
+                const hotel: IHotel = {
+                    ...this.hotel,
+                    ...this.hotelForm.value,
+                };
+
+                if (hotel.id === 0) {
+                    //
+                } else {
+                    this.hotelService.updateHotel(hotel).subscribe({
+                        next: () => {
+                            this.isSaved = true;
+                            this.saveCompleted();
+                        },
+                    });
+                }
+            } else {
+                this.saveCompleted();
+            }
+        }
         console.log(this.hotelForm.value);
+    }
+
+    public saveCompleted(): void {
+        this.hotelForm.reset;
+        this.router.navigate(['/hotels']);
     }
 }

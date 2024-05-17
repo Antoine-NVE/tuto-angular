@@ -7,7 +7,7 @@ export const hotelEditGuard: CanDeactivateFn<HotelEditComponent> = (
     currentState,
     nextState
 ) => {
-    if (component.hotelForm.dirty) {
+    if (component.hotelForm.dirty && !component.isSaved) {
         const hotelName =
             component.hotelForm.get('hotelName')!.value || 'Nouvel hôtel';
         return confirm(
