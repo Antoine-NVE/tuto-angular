@@ -28,7 +28,7 @@ registerLocaleData(localeFr, 'fr');
 export class HotelListComponent implements OnInit {
     public title = "Liste d'hôtels";
     public hotels: IHotel[] = [];
-    public showBadge: boolean = false;
+    public showBadge: boolean = true;
     private _hotelFilter: string = 'mot';
     public filteredHotels: IHotel[] = [];
     public receivedRating: string = '';
