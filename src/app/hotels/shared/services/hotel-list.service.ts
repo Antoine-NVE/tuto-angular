@@ -32,7 +32,7 @@ export class HotelListService {
     }
 
     public updateHotel(hotel: IHotel): Observable<IHotel> {
-        const url = `${this.HOTEL_API_URL}/${hotel.id}`;
+        const url = `${this.HOTEL_API_URL}/${hotel.id}222`;
         return this.http
             .put<IHotel>(url, hotel)
             .pipe(catchError(this.handleError));
@@ -63,9 +63,11 @@ export class HotelListService {
     }
 
     private handleError(error: HttpErrorResponse) {
+        let errorMessage: string;
         if (error.status === 0) {
             // A client-side or network error occurred. Handle it accordingly.
             console.error('An error occurred:', error.error);
+            errorMessage = `An error occurred: ${error.error.message}`;
         } else {
             // The backend returned an unsuccessful response code.
             // The response body may contain clues as to what went wrong.
@@ -73,10 +75,16 @@ export class HotelListService {
                 `Backend returned code ${error.status}, body was: `,
                 error.error
             );
+            errorMessage = `Backend returned code ${error.status}, body was: ${error.error}`;
         }
         // Return an observable with a user-facing error message.
         return throwError(
-            () => new Error('Something bad happened; please try again later.')
+            () =>
+                new Error(
+                    'Something bad happened; please try again later.' +
+                        '\n' +
+                        errorMessage
+                )
         );
     }
 }
