@@ -38,6 +38,11 @@ export class HotelListService {
             .pipe(catchError(this.handleError));
     }
 
+    public deleteHotel(id: number): Observable<{}> {
+        const url = `${this.HOTEL_API_URL}/${id}`;
+        return this.http.delete<IHotel>(url).pipe(catchError(this.handleError));
+    }
+
     public getHotelById(id: number): Observable<IHotel> {
         const url = `${this.HOTEL_API_URL}/${id}`;
         if (id === 0) {
@@ -49,11 +54,11 @@ export class HotelListService {
     private getDefaultHotel(): IHotel {
         return {
             id: 0,
-            hotelName: '',
-            description: '',
-            price: 0,
-            rating: 0,
-            imageUrl: '',
+            hotelName: null!,
+            description: null!,
+            price: null!,
+            rating: null!,
+            imageUrl: null!,
         };
     }
 
