@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
+    FormArray,
     FormBuilder,
+    FormControl,
     FormGroup,
     FormsModule,
     ReactiveFormsModule,
@@ -24,6 +26,7 @@ export class HotelEditComponent implements OnInit {
         price: ['', Validators.required],
         rating: [''],
         description: [''],
+        tags: this.fb.array([]),
     });
     public hotel!: IHotel;
     public pageTitle: string = '';
@@ -42,6 +45,19 @@ export class HotelEditComponent implements OnInit {
 
             this.getSelectedHotel(id);
         });
+    }
+
+    public get tags(): FormArray {
+        return this.hotelForm.get('tags') as FormArray;
+    }
+
+    public addTags(): void {
+        this.tags.push(new FormControl());
+    }
+
+    public deleteTag(index: number): void {
+        this.tags.removeAt(index);
+        this.tags.markAsDirty();
     }
 
     public getSelectedHotel(id: number): void {
