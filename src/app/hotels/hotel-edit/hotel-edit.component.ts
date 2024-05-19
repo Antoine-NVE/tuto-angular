@@ -1,9 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    OnInit,
+    ViewChildren,
+} from '@angular/core';
 import {
     FormArray,
     FormBuilder,
     FormControl,
+    FormControlName,
     FormGroup,
     FormsModule,
     ReactiveFormsModule,
@@ -13,6 +20,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HotelListService } from '../shared/services/hotel-list.service';
 import { IHotel } from '../shared/models/hotel';
 import { GlobalGenericValidator } from '../shared/validators/global-generic.validators';
+import { Observable, fromEvent, merge } from 'rxjs';
 
 @Component({
     selector: 'app-hotel-edit',
@@ -22,6 +30,9 @@ import { GlobalGenericValidator } from '../shared/validators/global-generic.vali
     styleUrl: './hotel-edit.component.css',
 })
 export class HotelEditComponent implements OnInit, AfterViewInit {
+    @ViewChildren(FormControlName, { read: ElementRef })
+    inputElements!: ElementRef[];
+
     public hotelForm!: FormGroup;
     public hotel!: IHotel;
     public pageTitle: string = '';
@@ -66,8 +77,18 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.formErrors = this.globalGenericValidator.createErrorMessages(
-            this.hotelForm
+        const formControlBlurs: Observable<unknown>[] = this.inputElements.map(
+            (formControlElemRef: ElementRef) =>
+                fromEvent(formControlElemRef.nativeElement, 'blur')
+        );
+        merge(this.hotelForm.valueChanges, ...formControlBlurs).subscribe(
+            () => {
+                this.formErrors =
+                    this.globalGenericValidator.createErrorMessages(
+                        this.hotelForm
+                    );
+                console.log(this.formErrors);
+            }
         );
     }
 
