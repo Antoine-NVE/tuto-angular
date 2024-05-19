@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {
     FormArray,
     FormBuilder,
@@ -12,6 +12,7 @@ import {
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HotelListService } from '../shared/services/hotel-list.service';
 import { IHotel } from '../shared/models/hotel';
+import { GlobalGenericValidator } from '../shared/validators/global-generic.validators';
 
 @Component({
     selector: 'app-hotel-edit',
@@ -20,18 +21,22 @@ import { IHotel } from '../shared/models/hotel';
     templateUrl: './hotel-edit.component.html',
     styleUrl: './hotel-edit.component.css',
 })
-export class HotelEditComponent implements OnInit {
-    public hotelForm: FormGroup = this.fb.group({
-        hotelName: ['', Validators.required],
-        price: ['', Validators.required],
-        rating: [''],
-        description: [''],
-        tags: this.fb.array([]),
-    });
+export class HotelEditComponent implements OnInit, AfterViewInit {
+    public hotelForm!: FormGroup;
     public hotel!: IHotel;
     public pageTitle: string = '';
     public isSaved: boolean = false;
     public errorMessage!: string;
+    public formErrors: { [key: string]: string } = {};
+    private validationMessages: { [key: string]: { [key: string]: string } } = {
+        hotelName: {
+            required: "Le nom de l'hôtel est obligatoire",
+        },
+        price: {
+            required: "Le prix de l'hôtel est obligatoire",
+        },
+    };
+    private globalGenericValidator!: GlobalGenericValidator;
 
     constructor(
         private fb: FormBuilder,
@@ -41,11 +46,29 @@ export class HotelEditComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.globalGenericValidator = new GlobalGenericValidator(
+            this.validationMessages
+        );
+
+        this.hotelForm = this.fb.group({
+            hotelName: ['', Validators.required],
+            price: ['', Validators.required],
+            rating: [''],
+            description: [''],
+            tags: this.fb.array([]),
+        });
+
         this.route.paramMap.subscribe((params) => {
             const id = +params.get('id')!;
 
             this.getSelectedHotel(id);
         });
+    }
+
+    ngAfterViewInit(): void {
+        this.formErrors = this.globalGenericValidator.createErrorMessages(
+            this.hotelForm
+        );
     }
 
     public hideError(): void {
